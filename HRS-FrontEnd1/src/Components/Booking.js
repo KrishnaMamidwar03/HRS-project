@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Booking.css'; // Ensure you have this CSS file
 
 function Booking() {
   const [locations, setLocations] = useState(['Mumbai', 'Pune']);
   const [hotels, setHotels] = useState([]);
-  const [rooms, setRooms] = useState(['Single', 'Double', 'Suite']); // Default room types
+  const [rooms, setRooms] = useState(['Single', 'Double', 'Suite']);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedHotel, setSelectedHotel] = useState('');
   const [selectedRoom, setSelectedRoom] = useState('');
@@ -12,7 +13,6 @@ function Booking() {
 
   useEffect(() => {
     if (selectedLocation) {
-      // Fetch hotels based on location
       axios.get(`/api/hotels?location=${selectedLocation}`)
         .then(response => setHotels(response.data))
         .catch(error => console.error(error));
@@ -37,7 +37,7 @@ function Booking() {
   };
 
   return (
-    <div>
+    <div className="booking-container">
       <h1>Hotel Booking System</h1>
       <div>
         <label>Location:</label>
@@ -72,7 +72,7 @@ function Booking() {
       <button onClick={handleBooking} disabled={!selectedRoom}>Book Now</button>
 
       {bookingDetails && (
-        <div>
+        <div className="booking-details">
           <h2>Booking Details</h2>
           <table>
             <thead>
@@ -95,4 +95,5 @@ function Booking() {
     </div>
   );
 }
-export default Booking
+
+export default Booking;
